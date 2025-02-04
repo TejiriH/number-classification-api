@@ -1,5 +1,6 @@
 # Number Classification API - HNG DevOps Stage one
 ![api](./img/numerical-api.jpg)
+
 A simple API that classifies a given number based on its mathematical properties and provides a fun fact using Number API
 
 ### Features
