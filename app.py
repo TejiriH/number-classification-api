@@ -42,25 +42,27 @@ def get_fun_fact(n):
 @app.route('/api/classify-number', methods=['GET'])
 def classify_number():
     num_param = request.args.get('number')
-    if not num_param or not num_param.lstrip('-').isdigit():
-        return jsonify({"number": "alphabet", "error": True}), 400
-    
-    number = int(num_param)
-    properties = ["armstrong"] if is_armstrong(number) else []
-    properties.append("even" if number % 2 == 0 else "odd")
-    
-    # Manually ordering the dictionary
+
+    # Validate input: Allow only numeric values (integers & floats)
+    try:
+        number = float(num_param)  # Convert to float
+    except (ValueError, TypeError):
+        return jsonify({"number": num_param, "error": True}), 400  # Reject non-numeric input
+
+    properties = ["armstrong"] if is_armstrong(int(number)) else []  # Convert to int for Armstrong check
+    properties.append("even" if int(number) % 2 == 0 else "odd")  # Convert to int for even/odd check
+
     result = OrderedDict([
-        ("number", number),
-        ("properties", properties),  # Correctly formatted properties
-        ("is_perfect", is_perfect(number)),
-        ("is_prime", is_prime(number)),
-        ("digit_sum", digit_sum(number)),
+        ("number", number),  # Keep number in float if necessary
+        ("properties", properties),
+        ("is_perfect", is_perfect(int(number))),
+        ("is_prime", is_prime(int(number))),
+        ("digit_sum", digit_sum(int(number))),
         ("fun_fact", get_fun_fact(number))
     ])
 
-    # Return the JSON response directly
-    return jsonify(result)
+    return jsonify(result), 200  # Return 200 OK for all numbers
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
