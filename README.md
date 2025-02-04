@@ -1,4 +1,5 @@
 # Number Classification API - HNG DevOps Stage one
+![api](./img/numerical-api.jpg)
 A simple API that classifies a given number based on its mathematical properties and provides a fun fact using Number API
 
 ### Features
@@ -101,7 +102,31 @@ I accessed the API using:
 
 ![200 ok](./img/api-success.png)
 
-#### 6. Testing invalid inputs
+#### 6. Set up a Reverse Proxy with Nginx
+To make the API publicly accessible, I configured Nginx:
+
+> sudo vim /etc/nginx/sites-available/default
+
+and updated it as seen below
+
+```
+server {
+    listen 80;
+    location / {
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+I saved and restarted nginx.
+
+> sudo systemctl restart nginx
+
+#### 7. Testing invalid inputs
 I tested invalid input such as alphabet and error response (400 Bad request) as intended with the below error message, confirming the code working as intended.
 > http://13.60.28.101:5000/api/classify-number?number=cat
 
