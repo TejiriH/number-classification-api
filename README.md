@@ -4,12 +4,12 @@
 A simple API that classifies a given number based on its mathematical properties and provides a fun fact using Number API
 
 ### Features
-✅ Accepts a number as a query parameter
-✅ Returns mathematical properties (prime, perfect, Armstrong, even/odd)
-✅ Fetches a fun fact about the number
-✅ Returns data in JSON format
-✅ Handles invalid inputs gracefully
-✅ Supports Cross-Origin Resource Sharing (CORS)
+- ✅ Accepts a number as a query parameter
+- ✅ Returns mathematical properties (prime, perfect, Armstrong, even/odd)
+- ✅ Fetches a fun fact about the number
+- ✅ Returns data in JSON format
+- ✅ Handles invalid inputs gracefully
+- ✅ Supports Cross-Origin Resource Sharing (CORS)
 
 ### Tech Stack
 
